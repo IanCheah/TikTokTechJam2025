@@ -22,7 +22,7 @@ current_session = None
 router = APIRouter()
 
 
-@router.post("/api/analyse", response_model=AnalyseResponse)
+@router.post("/analyse", response_model=AnalyseResponse)
 def analyse_content(request: AnalyseRequest):
     global current_session
 
@@ -46,7 +46,7 @@ def analyse_content(request: AnalyseRequest):
     return AnalyseResponse(session_id=session_id, suggestions=suggestions)
 
 
-@router.post("/api/sanitise", response_model=SanitiseResponse)
+@router.post("/sanitise", response_model=SanitiseResponse)
 def sanitise_content(request: SanitiseRequest):
     global current_session
 
@@ -62,7 +62,7 @@ def sanitise_content(request: SanitiseRequest):
     return SanitiseResponse(sanitised_data=sanitised_data, status="success")
 
 
-@router.post("/api/chat", response_model=ChatResponse)
+@router.post("/chat", response_model=ChatResponse)
 def chat_with_bot(request: ChatRequest):
     global current_session
 
