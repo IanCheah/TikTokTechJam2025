@@ -1,0 +1,257 @@
+:root {
+  background-color: #0D1117;
+  --color-text: #fff;
+}
+
+.body{
+  padding: 20px;
+}
+
+.TeamName{
+  font-weight: bold;
+  font-size: 20;
+}
+
+
+.Logo {
+  background: radial-gradient(
+    71.43% 62.3% at 46.43% 36.43%,
+    rgba(18, 229, 229, 0) 15%,
+    rgba(239, 155, 255, 0.3) 56.35%,
+    #ff6448 100%
+  );
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+scroll-view {
+  flex: 1;                    
+  overflow-y: auto;  
+  height: 100%;         
+}
+
+.Page {
+  margin-top: 50px;
+  min-height: 100%; 
+  padding: 10px;
+}
+
+text {
+  color: var(--color-text);
+}
+
+.subtext {
+  color: #8B949E;
+  font-size: 15;
+}
+
+.Logo {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.Logo--react {
+  width: 100px;
+  height: 100px;
+  animation: Logo--spin infinite 20s linear;
+}
+
+
+@keyframes Logo--spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes Logo--shake {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Arrow {
+  width: 24px;
+  height: 24px;
+}
+
+.Title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.Subtitle {
+  margin-top: 20px;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.Description {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 20px;
+}
+
+.Hint {
+  font-size: 12px;
+  margin: 5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.Background {
+  background-color: #0D1117;
+  flex: 1;
+  height: 100vh;
+}
+
+.Nav {
+  display: flex;              
+  flex-direction: row;        
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  width: 100%;
+}
+
+.NavLinks {
+  display: flex;             
+  flex-direction: row;
+  align-items: center;
+  gap: 15px; 
+}
+
+.NavLink {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.CTA {
+  background-color: #00D2FF;
+  color: #0D1117;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: bold;
+  display: inline-block; 
+  width: auto;  
+}
+
+.CTA:active {
+  background-color: #054d5e;
+  color: #F5F5F7;    
+}
+
+.Hero {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: left;
+  padding: 20px;
+}
+
+.HeroTitle {
+  font-size: 35px;
+  font-weight: bold;
+  color: #F5F5F7;
+}
+
+.HeroSubtitle {
+  color: #8B949E;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
+.HeroImage {
+  width: 120px;
+  height: 120px;
+  margin-left: 20px;
+}
+
+.Features {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.FeatureCard {
+  background-color: #161B22;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px
+}
+
+.FeatureTitle {
+  color: #00D2FF;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.FeatureText {
+  color: #F5F5F7;
+  margin-top: 8px;
+}
+
+.Chatbox {
+  margin: 32px;
+  background-color: #161B22;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.BotBubble {
+  background-color: #2C2F36;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #F5F5F7;
+}
+
+.UserBubble {
+  background-color: #00D2FF;
+  padding: 12px;
+  border-radius: 8px;
+  align-self: flex-end;
+  margin-bottom: 8px;
+  color: #0D1117;
+}
+
+.ChatInput {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #2C2F36;
+  padding-top: 8px;
+}
+
+.InputPlaceholder {
+  color: #8B949E;
+}
+
+.SendButton {
+  color: #00D2FF;
+  font-weight: bold;
+  margin-left: 12px;
+}
+
