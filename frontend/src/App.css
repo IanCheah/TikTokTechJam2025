@@ -9,7 +9,7 @@
 
 .TeamName{
   font-weight: bold;
-  font-size: 20;
+  font-size: 20px;
 }
 
 
@@ -46,7 +46,7 @@ text {
 
 .subtext {
   color: #8B949E;
-  font-size: 15;
+  font-size: 15px;
 }
 
 .Logo {
