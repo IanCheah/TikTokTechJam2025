@@ -1,2 +1,5 @@
 fastapi
 uvicorn
+huggingface-hub
+llama-cpp-python>=0.1.52
+pydantic>=2.5.1

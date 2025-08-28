@@ -1,0 +1,25 @@
+from llm import workflow_decider, generate_code, generate_suggestion
+
+def main():
+    print("=== Privacy Checker Chatbot ===")
+    while True:
+        user_input = input("\nEnter your code (or type 'quit'): ")
+        if user_input.lower() == "quit":
+            break
+
+        task = workflow_decider(user_input)
+        if "suggestion" in task.lower():
+            response = generate_suggestion(user_input)
+            print("\n--- Privacy Issues Found ---")
+            for issue in response.issues:
+                print(f"{issue.id}. {issue.issue} (Line: {issue.location}) - Severity: {issue.severity}")
+                print(f"   Suggestion: {issue.suggestion}")
+        elif "fixing" in task.lower():
+            response = generate_code(user_input)
+            print("\n--- Fixed Code ---")
+            print(response)
+        else:
+            print("\n⚠️ Could not determine the task.")
+
+if __name__ == "__main__":
+    main()
