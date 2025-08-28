@@ -19,11 +19,8 @@ class LLMResponse(BaseModel):
 
 # -------------------- LLM setup --------------------
 
+llm = Llama(model_path="codellama-7b-instruct.Q4_K_M.gguf")
 
-llm = Llama(
-    model_path="./models/codellama-7b-instruct.Q4_K_M.gguf",
-    n_ctx=4096
-)
 
 # -------------------- Helper --------------------
 def ask_llm(prompt: str, user_input: str, max_tokens: int = 512) -> str:
