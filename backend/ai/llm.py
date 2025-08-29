@@ -86,9 +86,15 @@ class ChatResponse(BaseModel):
 
 # -------------------- LLM setup --------------------
 
+<<<<<<< Updated upstream
 llm = Llama(
     model_path="./models/codellama-7b-instruct.Q4_K_M.gguf", n_ctx=2048, n_threads=8
 )
+=======
+llm = Llama(model_path="./models/qwen2.5-coder-1.5b-instruct-q4_k_m.gguf",
+             n_ctx=2048,  
+             n_threads=8)
+>>>>>>> Stashed changes
 
 
 # -------------------- Helper --------------------
