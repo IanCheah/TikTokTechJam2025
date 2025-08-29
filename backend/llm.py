@@ -36,10 +36,7 @@ class WorkFlow(BaseModel):
 # -------------------- LLM setup --------------------
 
 llm = Llama(
-    model_path="./models/codellama-7b-instruct.Q4_K_M.gguf", n_ctx=2048, n_threads=8
-)
-llm = Llama(
-    model_path="./models/qwen2.5-coder-1.5b-instruct-q4_k_m.gguf",
+    model_path="./ai/models/qwen2.5-coder-1.5b-instruct-q4_k_m.gguf",
     n_ctx=2048,
     n_threads=8,
 )

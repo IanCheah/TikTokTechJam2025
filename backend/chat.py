@@ -31,5 +31,3 @@ def chat(user_input: str) -> LLMResponse:
     return response
 
 
-if __name__ == "__main__":
-    main()
