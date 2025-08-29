@@ -20,7 +20,6 @@ export function App(props: {
     <view className="Background">
       <scroll-view scroll-y style="flex:1; height:100%;" scroll-into-view={scrollTarget}>
         <view className="Page">
-
           {/* Navigation Bar */}
           <view className="Nav">
             <text className="TeamName">CapΔ</text>

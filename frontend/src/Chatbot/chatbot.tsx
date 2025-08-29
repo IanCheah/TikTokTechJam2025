@@ -7,28 +7,28 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     { sender: 'bot', text: 'Hello! How can I help you today?' },
   ])
-  const [input, setInput] = useState('')
+  const [inputContent, setInputContent] = useState("")
 
   const sendMessage = () => {
-    if (!input.trim()) return
+    if (!inputContent.trim()) return
 
-    // Add user message
-    const newMessages = [...messages, { sender: 'user', text: input }]
+    // user message
+    const newMessages = [...messages, { sender: 'user', text: inputContent }]
     setMessages(newMessages)
-    setInput('')
+    setInputContent('')
 
-    // Simulate bot reply
+    // bot reply
     setTimeout(() => {
       setMessages(prev => [
         ...prev,
-        { sender: 'bot', text: "I'm here to protect your privacy 🚀" },
+        { sender: 'bot', text: `You said: ${inputContent}` },
       ])
-    }, 800)
+    }, 600)
   }
 
   return (
     <view className="Background"> 
-    <Header />
+      <Header />
       <scroll-view scroll-y style="flex:1; height:100%;">
         <view className="Page"> 
           <view className="ChatContainer">
@@ -38,20 +38,27 @@ export default function Chatbot() {
                   key={index}
                   className={msg.sender === 'user' ? 'UserBubble' : 'BotBubble'}
                 >
-                <text>{msg.text}</text>
+                  <text>{msg.text}</text>
                 </view>
               ))}
             </scroll-view>
 
-          <view className="ChatInputBar">
-        
-          <text className="SendButton" bindtap={sendMessage}>
-          ➤
-        </text>
-      </view>
-    </view>
-    </view>
-     </scroll-view>
+            <view className="ChatInputBar">
+              <view style={{ flex: 1, padding: 8 }}>
+                <input 
+                  className="ChatInput"
+                  placeholder="Type a message..."
+                  value={inputContent}
+                  bindinput={(res: any) => setInputContent(res.detail.value)} 
+                />
+              </view>
+              <text className="SendButton" bindtap={sendMessage}>
+                ➤
+              </text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
     </view>
   )
 }

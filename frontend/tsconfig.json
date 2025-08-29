@@ -17,4 +17,5 @@
     "noEmit": true,
   },
   "exclude": ["dist/"],
+  "include": ["src"],
 }
