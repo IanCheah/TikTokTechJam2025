@@ -30,4 +30,3 @@ def chat(user_input: str) -> LLMResponse:
         print("\n Could not determine the task.")
     return response
 
-
