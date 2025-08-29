@@ -2,7 +2,7 @@ import '@lynx-js/preact-devtools'
 import '@lynx-js/react/debug'
 import { root } from '@lynx-js/react'
 import {MemoryRouter, Routes, Route} from 'react-router'
-import ChatPage from './pages/chatbot.js'
+import ChatPage from './Chatbot/chatbot.tsx'
 import { App } from './App.jsx'
 
 root.render(

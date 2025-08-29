@@ -31,6 +31,7 @@
     "istanbul-lib-coverage": "^3.2.2",
     "istanbul-lib-report": "^3.0.1",
     "jsdom": "^26.1.0",
+    "patch-package": "^8.0.0",
     "typescript": "~5.9.2",
     "vitest": "^3.2.4"
   },

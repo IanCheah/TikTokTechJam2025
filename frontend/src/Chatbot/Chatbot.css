@@ -1,0 +1,53 @@
+.ChatContainer {
+  flex: 1;
+  background-color: #0D1117;
+  padding: 12px;
+}
+
+.ChatMessages {
+  flex: 1;
+  margin-bottom: 12px;
+}
+
+.BotBubble {
+  background-color: #2C2F36;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  align-self: flex-start;
+  max-width: 75%;
+  color: #F5F5F7;
+}
+
+.UserBubble {
+  background-color: #00D2FF;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  align-self: flex-end;
+  max-width: 75%;
+  color: #0D1117;
+  font-weight: bold;
+}
+
+.ChatInputBar {
+  flex-direction: row;
+  align-items: center;
+  border-top: 1px solid #2C2F36;
+  padding-top: 8px;
+}
+
+.ChatInput {
+  flex: 1;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #161B22;
+  color: #F5F5F7;
+}
+
+.SendButton {
+  margin-left: 8px;
+  color: #00D2FF;
+  font-size: 18px;
+  font-weight: bold;
+}
