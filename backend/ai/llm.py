@@ -19,7 +19,9 @@ class LLMResponse(BaseModel):
 
 # -------------------- LLM setup --------------------
 
-llm = Llama(model_path="codellama-7b-instruct.Q4_K_M.gguf")
+llm = Llama(model_path="./models/codellama-7b-instruct.Q4_K_M.gguf",
+             n_ctx=2048,  
+             n_threads=8)
 
 
 # -------------------- Helper --------------------
