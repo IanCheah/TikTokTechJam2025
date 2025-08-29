@@ -3,9 +3,10 @@ from enum import Enum
 from typing import Optional
 
 from llama_cpp import Llama
-from memory import add_memory, get_memory
-from prompt import FIXING_PROMPT, SUGGESTION_PROMPT, WORKFLOW_PROMPT
 from pydantic import BaseModel
+
+from backend.memory import add_memory, get_memory
+from backend.prompt import FIXING_PROMPT, SUGGESTION_PROMPT, WORKFLOW_PROMPT
 
 
 # -------------------- Pydantic models --------------------
