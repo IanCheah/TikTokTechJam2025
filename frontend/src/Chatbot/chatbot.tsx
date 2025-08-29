@@ -10,21 +10,23 @@ export default function Chatbot() {
   const [inputContent, setInputContent] = useState("")
 
   const sendMessage = () => {
-    if (!inputContent.trim()) return
+  if (!inputContent.trim()) return
 
-    // user message
-    const newMessages = [...messages, { sender: 'user', text: inputContent }]
-    setMessages(newMessages)
-    setInputContent('')
+  const newMessages = [...messages, { sender: 'user', text: inputContent }]
+  setMessages(newMessages)
+  setInputContent('')
 
-    // bot reply
-    setTimeout(() => {
-      setMessages(prev => [
-        ...prev,
-        { sender: 'bot', text: `You said: ${inputContent}` },
-      ])
-    }, 600)
+  const el = document.getElementById("chat-textarea") as HTMLTextAreaElement
+  if (el) {
+    el.value = ""  // clear 
+    el.style.height = "auto"
   }
+
+  setTimeout(() => {
+    setMessages(prev => [...prev, { sender: 'bot', text: `You said: ${inputContent}` }])
+  }, 600)
+}
+
 
   return (
     <view className="Background"> 
@@ -45,12 +47,30 @@ export default function Chatbot() {
 
             <view className="ChatInputBar">
               <view style={{ flex: 1, padding: 8 }}>
-                <input 
-                  className="ChatInput"
-                  placeholder="Type a message..."
-                  value={inputContent}
-                  bindinput={(res: any) => setInputContent(res.detail.value)} 
-                />
+                <textarea
+  className="ChatInput"
+  id="chat-textarea"
+  placeholder="Type a message..."
+  value={inputContent}
+  bindinput={(res: any) => {
+    const value = res.detail.value
+    setInputContent(value)
+
+    const el = document.getElementById("chat-textarea") as HTMLTextAreaElement
+    if (el) {
+      el.style.height = "auto"
+      el.style.height = Math.min(el.scrollHeight, 120) + "px"
+    }
+  }}
+  bindkeydown={(e: any) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault?.() 
+      sendMessage()
+    }
+  }}
+  rows={1}
+  style="resize: none; overflow:hidden;"
+/>
               </view>
               <text className="SendButton" bindtap={sendMessage}>
                 ➤

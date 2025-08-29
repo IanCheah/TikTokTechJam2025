@@ -32,28 +32,31 @@
 }
 
 .ChatInputBar {
-  display: inline-flex;
+  display: flex;
   flex: 1;
   flex-direction: row;
   align-items: center;
   margin: 0px 5px;
-  background-color: #fff;
   width: 100%;
   position: relative;
 }
 
 .ChatInput {
-  width: 100%;           
-  height: 30px;        
+  width: 100%;
+  min-height: 40px;
+  max-height: 120px;
   border-radius: 8px;
-  padding: 0 5px;
+  padding: 10px 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   outline: none;
+  color: #fff;
+  background-color: #1A1D23;
+  overflow-y: hidden;   
+  line-height: 1.4;
 }
 
-.SendButton {
-  margin-left: 8px;     
+.SendButton { 
   color: #00D2FF;
   font-size: 24px;     
   font-weight: bold;
