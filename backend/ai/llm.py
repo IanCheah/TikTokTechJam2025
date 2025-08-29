@@ -39,7 +39,6 @@ def ask_llm(prompt: str, user_input: str, max_tokens: int = 512) -> str:
     output = llm(context, max_tokens=max_tokens, stop=["</s>"])
     text = output["choices"][0]["text"].strip()
     add_memory("assistant", text)
-    print(f"THE OUTPUT IS THIS {text}")
     return text
 
 # -------------------- Workflow --------------------

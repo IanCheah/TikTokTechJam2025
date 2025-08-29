@@ -91,6 +91,10 @@ PII refers to any information that can be used to identify a specific individual
 Examples include: Social Security number, email, telephone number, date of birth etc.
 Hardcoded secrets like API keys, database credentials, encryption keys, OAuth tokens are also considered privacy issues.
 
+RULES (VERY IMPORTANT):
+- Return ONE and ONLY ONE JSON object.
+- Do NOT output analysis, examples, or any text around the JSON.
+
 Output using the pydantic model LLMResponse which is a list of privacy issues:
 
 class PrivacyIssue(BaseModel):
@@ -230,7 +234,6 @@ class LLMResponse(BaseModel):
 ]
 """
 
-
 FIXING_PROMPT = """
 You are an advanced code editor specialized in privacy and security. 
 Given an original code snippet and a set of user-selected privacy suggestions (from the previous LLMResponse), your task is to modify the original code to fully address the selected suggestions. 
@@ -242,6 +245,10 @@ Your modifications should reflect real code changes:
 - Correct vulnerabilities based on the suggestion, ensuring the code remains functional.
 - If creating additional files (e.g., .env), include their content after the modified code.
 - Maintain code structure and readability.
+
+RULES (VERY IMPORTANT):
+- Return ONE and ONLY ONE JSON object.
+- Do NOT output analysis, examples, or any text around the JSON.
 
 Return the following:
 1. The original code first.
@@ -270,214 +277,259 @@ print("Connecting to service using", api_key)
 
 # .env content
 API_KEY=1234567890abcdef
-
-# Example 2: Removing email from logs
-Original code:
-print(df['email'])
-
-User selection: ID 2 (User email exposure)
-
-Modified code:
-# Original code
-print(df['email'])
-
-# Modified code
-print("EMAIL MASKED")  # Masked for privacy
-
-# Example 3: Moving DB password to env
-Original code:
-db_password = "password123"
-
-User selection: ID 3
-
-Modified code:
-# Original code
-db_password = "password123"
-
-# Modified code
-db_password = "XXXX"  # Moved to .env file
-
-# .env content
-DB_PASSWORD=password123
-
-# Example 4: Masking SSN in logs
-Original code:
-print(df['ssn'])
-
-User selection: ID 4
-
-Modified code:
-# Original code
-print(df['ssn'])
-
-# Modified code
-print("SSN MASKED")  # Masked for privacy
-
-# Example 5: Moving hardcoded OAuth token
-Original code:
-token = "abcdef123456"
-
-User selection: ID 6
-
-Modified code:
-# Original code
-token = "abcdef123456"
-
-# Modified code
-token = "XXXX"  # Moved to .env file
-
-# .env content
-OAUTH_TOKEN=abcdef123456
-
-# Example 6: Masking Date of Birth
-Original code:
-print(user['dob'])
-
-User selection: ID 7
-
-Modified code:
-# Original code
-print(user['dob'])
-
-# Modified code
-print("DOB MASKED")  # Masked for privacy
-
-# Example 7: Masking phone number
-Original code:
-console.log(user.phone)
-
-User selection: ID 8
-
-Modified code:
-# Original code
-console.log(user.phone)
-
-# Modified code
-console.log("PHONE MASKED")  # Masked for privacy
-
-# Example 8: Moving encryption key to env
-Original code:
-encryption_key = "mysecretkey"
-
-User selection: ID 9
-
-Modified code:
-# Original code
-encryption_key = "mysecretkey"
-
-# Modified code
-encryption_key = "XXXX"  # Moved to .env file
-
-# .env content
-ENCRYPTION_KEY=mysecretkey
-
-# Example 9: Masking JWT secret
-Original code:
-jwt_secret = "supersecret"
-
-User selection: ID 10
-
-Modified code:
-# Original code
-jwt_secret = "supersecret"
-
-# Modified code
-jwt_secret = "XXXX"  # Moved to .env file
-
-# .env content
-JWT_SECRET=supersecret
-
-# Example 10: Removing user location from print
-Original code:
-print(user['location'])
-
-User selection: ID 11
-
-Modified code:
-# Original code
-print(user['location'])
-
-# Modified code
-print("LOCATION MASKED")  # Masked for privacy
-
-# Example 11: Moving SMTP password
-Original code:
-smtp_password = "mailpass"
-
-User selection: ID 12
-
-Modified code:
-# Original code
-smtp_password = "mailpass"
-
-# Modified code
-smtp_password = "XXXX"  # Moved to .env file
-
-# .env content
-SMTP_PASSWORD=mailpass
-
-# Example 12: Masking full name in logs
-Original code:
-console.log(user.name)
-
-User selection: ID 13
-
-Modified code:
-# Original code
-console.log(user.name)
-
-# Modified code
-console.log("NAME MASKED")  # Masked for privacy
-
-# Example 13: Moving client-side API secret
-Original code:
-const secret = 'jssecret';
-
-User selection: ID 14
-
-Modified code:
-# Original code
-const secret = 'jssecret';
-
-# Modified code
-const secret = 'XXXX';  // Moved to .env file
-
-# .env content
-CLIENT_API_SECRET=jssecret
-
-# Example 14: Masking profile picture URL
-Original code:
-print(user['profile_pic'])
-
-User selection: ID 15
-
-Modified code:
-# Original code
-print(user['profile_pic'])
-
-# Modified code
-print("PROFILE PIC MASKED")  # Masked for privacy
-
-# Example 15: Multiple changes at once
-Original code:
-api_key = "1234567890abcdef"
-print(user['email'])
-db_password = "password123"
-
-User selection: IDs 1, 2, 3
-
-Modified code:
-# Original code
-api_key = "1234567890abcdef"
-print(user['email'])
-db_password = "password123"
-
-# Modified code
-api_key = "XXXX"  # Moved to .env file
-print("EMAIL MASKED")  # Masked for privacy
-db_password = "XXXX"  # Moved to .env file
-
-# .env content
-API_KEY=1234567890abcdef
-DB_PASSWORD=password123
 """
+
+# FIXING_PROMPT = """
+# You are an advanced code editor specialized in privacy and security. 
+# Given an original code snippet and a set of user-selected privacy suggestions (from the previous LLMResponse), your task is to modify the original code to fully address the selected suggestions. 
+# You may receive the suggestions as IDs from the LLMResponse or as plain text descriptions. 
+# Your modifications should reflect real code changes:
+# - Mask sensitive information with placeholders (e.g., 'XXXX').
+# - Move hardcoded secrets to environment variables or external files (e.g., .env), and annotate this with a comment.
+# - Remove or redact PII from logs, print statements, or outputs.
+# - Correct vulnerabilities based on the suggestion, ensuring the code remains functional.
+# - If creating additional files (e.g., .env), include their content after the modified code.
+# - Maintain code structure and readability.
+
+# RULES (VERY IMPORTANT):
+# - Return ONE and ONLY ONE JSON object.
+# - Do NOT output analysis, examples, or any text around the JSON.
+
+# Return the following:
+# 1. The original code first.
+# 2. The fully modified code addressing the suggestion(s).
+# 3. Any new files you create, with file name and content (if applicable).
+
+# Do NOT include explanations.
+
+# # Examples
+
+# # Example 1: Masking a hardcoded API key
+# Original code:
+# api_key = "1234567890abcdef"
+# print("Connecting to service using", api_key)
+
+# User selection: ID 1 (Hardcoded API key)
+
+# Modified code:
+# # Original code
+# api_key = "1234567890abcdef"
+# print("Connecting to service using", api_key)
+
+# # Modified code
+# api_key = "XXXX"  # Moved to .env file
+# print("Connecting to service using", api_key)
+
+# # .env content
+# API_KEY=1234567890abcdef
+
+# # Example 2: Removing email from logs
+# Original code:
+# print(df['email'])
+
+# User selection: ID 2 (User email exposure)
+
+# Modified code:
+# # Original code
+# print(df['email'])
+
+# # Modified code
+# print("EMAIL MASKED")  # Masked for privacy
+
+# # Example 3: Moving DB password to env
+# Original code:
+# db_password = "password123"
+
+# User selection: ID 3
+
+# Modified code:
+# # Original code
+# db_password = "password123"
+
+# # Modified code
+# db_password = "XXXX"  # Moved to .env file
+
+# # .env content
+# DB_PASSWORD=password123
+
+# # Example 4: Masking SSN in logs
+# Original code:
+# print(df['ssn'])
+
+# User selection: ID 4
+
+# Modified code:
+# # Original code
+# print(df['ssn'])
+
+# # Modified code
+# print("SSN MASKED")  # Masked for privacy
+
+# # Example 5: Moving hardcoded OAuth token
+# Original code:
+# token = "abcdef123456"
+
+# User selection: ID 6
+
+# Modified code:
+# # Original code
+# token = "abcdef123456"
+
+# # Modified code
+# token = "XXXX"  # Moved to .env file
+
+# # .env content
+# OAUTH_TOKEN=abcdef123456
+
+# # Example 6: Masking Date of Birth
+# Original code:
+# print(user['dob'])
+
+# User selection: ID 7
+
+# Modified code:
+# # Original code
+# print(user['dob'])
+
+# # Modified code
+# print("DOB MASKED")  # Masked for privacy
+
+# # Example 7: Masking phone number
+# Original code:
+# console.log(user.phone)
+
+# User selection: ID 8
+
+# Modified code:
+# # Original code
+# console.log(user.phone)
+
+# # Modified code
+# console.log("PHONE MASKED")  # Masked for privacy
+
+# # Example 8: Moving encryption key to env
+# Original code:
+# encryption_key = "mysecretkey"
+
+# User selection: ID 9
+
+# Modified code:
+# # Original code
+# encryption_key = "mysecretkey"
+
+# # Modified code
+# encryption_key = "XXXX"  # Moved to .env file
+
+# # .env content
+# ENCRYPTION_KEY=mysecretkey
+
+# # Example 9: Masking JWT secret
+# Original code:
+# jwt_secret = "supersecret"
+
+# User selection: ID 10
+
+# Modified code:
+# # Original code
+# jwt_secret = "supersecret"
+
+# # Modified code
+# jwt_secret = "XXXX"  # Moved to .env file
+
+# # .env content
+# JWT_SECRET=supersecret
+
+# # Example 10: Removing user location from print
+# Original code:
+# print(user['location'])
+
+# User selection: ID 11
+
+# Modified code:
+# # Original code
+# print(user['location'])
+
+# # Modified code
+# print("LOCATION MASKED")  # Masked for privacy
+
+# # Example 11: Moving SMTP password
+# Original code:
+# smtp_password = "mailpass"
+
+# User selection: ID 12
+
+# Modified code:
+# # Original code
+# smtp_password = "mailpass"
+
+# # Modified code
+# smtp_password = "XXXX"  # Moved to .env file
+
+# # .env content
+# SMTP_PASSWORD=mailpass
+
+# # Example 12: Masking full name in logs
+# Original code:
+# console.log(user.name)
+
+# User selection: ID 13
+
+# Modified code:
+# # Original code
+# console.log(user.name)
+
+# # Modified code
+# console.log("NAME MASKED")  # Masked for privacy
+
+# # Example 13: Moving client-side API secret
+# Original code:
+# const secret = 'jssecret';
+
+# User selection: ID 14
+
+# Modified code:
+# # Original code
+# const secret = 'jssecret';
+
+# # Modified code
+# const secret = 'XXXX';  // Moved to .env file
+
+# # .env content
+# CLIENT_API_SECRET=jssecret
+
+# # Example 14: Masking profile picture URL
+# Original code:
+# print(user['profile_pic'])
+
+# User selection: ID 15
+
+# Modified code:
+# # Original code
+# print(user['profile_pic'])
+
+# # Modified code
+# print("PROFILE PIC MASKED")  # Masked for privacy
+
+# # Example 15: Multiple changes at once
+# Original code:
+# api_key = "1234567890abcdef"
+# print(user['email'])
+# db_password = "password123"
+
+# User selection: IDs 1, 2, 3
+
+# Modified code:
+# # Original code
+# api_key = "1234567890abcdef"
+# print(user['email'])
+# db_password = "password123"
+
+# # Modified code
+# api_key = "XXXX"  # Moved to .env file
+# print("EMAIL MASKED")  # Masked for privacy
+# db_password = "XXXX"  # Moved to .env file
+
+# # .env content
+# API_KEY=1234567890abcdef
+# DB_PASSWORD=password123
+# """
