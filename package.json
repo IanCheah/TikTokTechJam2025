@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/react": "^19.1.12"
+  },
+  "dependencies": {
+    "@lynx-js/web-elements": "^0.8.4",
+    "webpack-cli": "^6.0.1"
+  }
+}

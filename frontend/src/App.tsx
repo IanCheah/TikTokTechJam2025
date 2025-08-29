@@ -4,6 +4,8 @@ import './App.css'
 import arrow from './assets/arrow.png'
 import ChatPage from './pages/chatbot.js'
 import { useNavigate } from 'react-router'
+import '@lynx-js/web-elements/all';
+import '@lynx-js/web-elements/index.css';
 
 export function App(props: {
   onRender?: () => void
