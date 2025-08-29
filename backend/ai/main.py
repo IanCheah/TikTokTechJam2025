@@ -8,7 +8,6 @@ def main():
     task = workflow_decider(user_input)
     print(task)
     print("HELLO WORLD")
-    """
     if "suggestion" in task.lower():
         response = generate_suggestion(user_input)
         print("\n--- Privacy Issues Found ---")
@@ -21,7 +20,6 @@ def main():
     else:
         print("\n Could not determine the task.")
     return response
-    """
 
 if __name__ == "__main__":
     main()

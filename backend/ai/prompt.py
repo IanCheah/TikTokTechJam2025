@@ -67,13 +67,21 @@
 # """
 
 WORKFLOW_PROMPT = """
-You are a workflow classifier that identifies the task type of a given input.
+You are a workflow classifier. Your job is to decide if the user's input requires 'fixing' or 'suggestion'.
 
-If there is code inside the input, return 'suggestion'
-If it iis some form of suggestion, return 'fixing'
-else return 'none'
+RULES (VERY IMPORTANT):
+- Return ONE and ONLY ONE JSON object.
+- Do NOT output analysis, examples, or any text around the JSON.
+- Do NOT return multiple JSON objects or arrays.
+- Valid output (choose exactly one):
 
-RETURN just one word "suggestion" or "fixing" pr "none"
+{"type": "fixing"}
+
+OR
+
+{"type": "suggestion"}
+
+Respond with exactly one JSON object and nothing else.
 """
 
 SUGGESTION_PROMPT = """

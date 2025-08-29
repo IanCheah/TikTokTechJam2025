@@ -3,6 +3,7 @@ from prompt import WORKFLOW_PROMPT, SUGGESTION_PROMPT, FIXING_PROMPT
 from memory import get_memory, add_memory
 import json
 from pydantic import BaseModel
+from enum import Enum
 from typing import List
 
 # -------------------- Pydantic models --------------------
@@ -17,9 +18,16 @@ class LLMResponse(BaseModel):
     issues: List[PrivacyIssue]
     raw_text: str
 
+class Type(str, Enum):
+    FIXING = "fixing"
+    SUGGESTION = "suggestion"
+
+class WorkFlow(BaseModel):
+    type: Type
+
 # -------------------- LLM setup --------------------
 
-llm = Llama(model_path="./models/codellama-7b-instruct.Q4_K_M.gguf",
+llm = Llama(model_path="./models/qwen2.5-coder-1.5b-instruct-q4_k_m.gguf",
              n_ctx=2048,  
              n_threads=8)
 
@@ -31,6 +39,7 @@ def ask_llm(prompt: str, user_input: str, max_tokens: int = 512) -> str:
     output = llm(context, max_tokens=max_tokens, stop=["</s>"])
     text = output["choices"][0]["text"].strip()
     add_memory("assistant", text)
+    print(f"THE OUTPUT IS THIS {text}")
     return text
 
 # -------------------- Workflow --------------------
