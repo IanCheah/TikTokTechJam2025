@@ -1,0 +1,22 @@
+.HeaderContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background-color: #0D1117;
+  height: 50px;
+  margin-top: 60px;
+}
+
+.BackButton {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.HeaderTitle {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  flex: 1;
+}

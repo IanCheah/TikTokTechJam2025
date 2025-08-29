@@ -7,6 +7,7 @@
 .ChatMessages {
   flex: 1;
   margin-bottom: 12px;
+  font-size: 18px;
 }
 
 .BotBubble {
