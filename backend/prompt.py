@@ -69,19 +69,21 @@
 WORKFLOW_PROMPT = """
 You are a workflow classifier. Your job is to decide if the user's input requires 'fixing' or 'suggestion'.
 
+'suggestion': Analyze the code and identify potential privacy, security, or sensitive data issues. 
+- Input for this task usually contains code snippets, scripts, or configuration files.
+
+'fixing': Edit or rewrite the code to fix privacy issues or implement suggested improvements.
+- Input for this task usually contains instructions to modify inputs or examples of changes.
+
 RULES (VERY IMPORTANT):
 - Return ONE and ONLY ONE JSON object.
 - Do NOT output analysis, examples, or any text around the JSON.
 - Do NOT return multiple JSON objects or arrays.
 - Valid output (choose exactly one):
 
-{"type": "fixing"}
-
-OR
-
-{"type": "suggestion"}
-
-Respond with exactly one JSON object and nothing else.
+ALLOWED RESPONSES:
+1. {"type": "fixing"}
+2. {"type": "suggestion"} 
 """
 
 SUGGESTION_PROMPT = """
