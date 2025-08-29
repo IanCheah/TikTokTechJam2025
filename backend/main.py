@@ -1,8 +1,9 @@
-from api.views import router as api_router
 from fastapi import FastAPI
 
+from backend.views import router as api_router
+
 app = FastAPI(title="Data Sanitisation API")
-app.include_router(api_router, prefix="/api")
+app.include_router(api_router, prefix="/chat")
 
 
 @app.get("/")
