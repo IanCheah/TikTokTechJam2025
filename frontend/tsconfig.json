@@ -2,6 +2,8 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "@lynx-js/react",
+    "allowImportingTsExtensions": true,
+    "lib": ["DOM", "DOM.Iterable", "ES6"],
 
     "module": "node18",
     "moduleResolution": "node16",
@@ -12,6 +14,7 @@
 
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "noEmit": true,
   },
   "exclude": ["dist/"],
 }
