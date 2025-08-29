@@ -22,6 +22,9 @@ def chat(user_input: str) -> LLMResponse:
             print(
                 f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion}"
             )
+            print(
+                f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion}"
+            )
     elif "fixing" in task.lower():
         response = generate_code(user_input)
         print("\n--- Fixed Code ---")
@@ -29,4 +32,3 @@ def chat(user_input: str) -> LLMResponse:
     else:
         print("\n Could not determine the task.")
     return response
-

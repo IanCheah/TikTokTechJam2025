@@ -20,6 +20,7 @@ class PrivacyIssue(BaseModel):
 
 class LLMResponse(BaseModel):
     issues: list[PrivacyIssue]
+    issues: list[PrivacyIssue]
     raw_text: str
     fixed_code: Optional[str]
 
