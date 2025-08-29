@@ -1,30 +1,12 @@
-from llm import generate_code, generate_suggestion, workflow_decider
+from ai.views import router as api_router
+from fastapi import FastAPI
+
+app = FastAPI(title="Data Sanitisation API")
+app.include_router(api_router, prefix="/api")
 
 
-def main():
-    print("=== Privacy Checker Chatbot ===")
-
-    user_input = input("\nEnter your code: ")
-
-    task = workflow_decider(user_input)
-    print(task)
-    print("HELLO WORLD")
-
-    if "suggestion" in task.lower():
-        response = generate_suggestion(user_input)
-        print("\n--- Privacy Issues Found ---")
-        for issue in response.issues:
-            print(
-                f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion}"
-            )
-    elif "fixing" in task.lower():
-        response = generate_code(user_input)
-        print("\n--- Fixed Code ---")
-        print(response)
-    else:
-        print("\n Could not determine the task.")
-    return response
-
-
-if __name__ == "__main__":
-    main()
+@app.get("/")
+async def root():
+    return {
+        "message": "Data Sanitization API is running",
+    }

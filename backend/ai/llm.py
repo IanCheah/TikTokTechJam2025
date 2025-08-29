@@ -1,6 +1,6 @@
 import json
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from llama_cpp import Llama
 from memory import add_memory, get_memory
@@ -78,7 +78,7 @@ def generate_suggestion(user_input: str) -> LLMResponse:
                 suggestion=raw_text,
             )
         ]
-    return LLMResponse(issues=issues, raw_text=raw_text)
+    return LLMResponse(issues=issues, raw_text=raw_text, fixed_code=None)
 
 
 def generate_code(user_input: str) -> str:
