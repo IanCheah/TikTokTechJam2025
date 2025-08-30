@@ -50,7 +50,7 @@ class FixedResponse(BaseModel):
 # -------------------- LLM setup --------------------
 
 llm = Llama(
-    model_path="./backend/models/qwen2.5-coder-1.5b-instruct-q4_k_m.gguf",
+    model_path="qwen2.5-coder-1.5b-instruct-q4_k_m.gguf",
     n_ctx=2048,
     n_threads=8,
 )

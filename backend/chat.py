@@ -16,8 +16,8 @@ def chat(type: str, user_input: str) -> Optional[LLMResponse]:
     # user_input = input("\nEnter your code: ")
 
     # task = workflow_decider(user_input)
-    task = "suggestion"
-    print(task)
+    # task = "suggestion"
+    # print(task)
     print("HELLO WORLD")
     if "suggestion" == type:
         response = generate_suggestion(user_input)
@@ -26,6 +26,7 @@ def chat(type: str, user_input: str) -> Optional[LLMResponse]:
             print(
                 f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion} - Implications: {issue.implications}"
             )
+        return response
     elif "fixing" == type:
         response = generate_code(user_input)
         print("\n--- Fixed Code ---")
@@ -33,3 +34,4 @@ def chat(type: str, user_input: str) -> Optional[LLMResponse]:
         return parse_llm_response(response)
     else:
         print("\n Could not determine the task.")
+        return None
