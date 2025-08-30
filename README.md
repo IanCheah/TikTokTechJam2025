@@ -17,7 +17,7 @@ additional suggestions and feedback.
 
 ## Architecture
 The application follows a modern web architecture with:
-- **Frontend**: Lynx
+- **Frontend**: Lynx, Typescript
 - **Backend**: FastAPI
 - **LLM Integration**: Qwen 2.5 Coder
 
@@ -26,6 +26,8 @@ Before you begin, ensure that you have the following installed:
 - **npm** 
 - **Python** 
 - **pip** 
+- **typescript**
+- **Lynx**
 
 ## Installation
 1. Clone the repository
