@@ -1,14 +1,15 @@
 import json
-import torch
 from enum import Enum
 from typing import Optional
 
-from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
 from llama_cpp import Llama
 from pydantic import BaseModel
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from backend.memory import add_memory, get_memory
 from backend.prompt import FIXING_PROMPT, SUGGESTION_PROMPT, WORKFLOW_PROMPT
+from backend.service import parse_llm_response
 
 
 # -------------------- Pydantic models --------------------
@@ -47,8 +48,8 @@ checkpoint = "deepseek-coder-1.3b-instruct"  # or your local path
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 llm = AutoModelForCausalLM.from_pretrained(
     checkpoint,
-    torch_dtype=torch.float16,   # or bfloat16 if your hardware supports
-    device_map="auto",           # "mps" for Apple Silicon, "cpu" otherwise
+    torch_dtype=torch.float16,  # or bfloat16 if your hardware supports
+    device_map="auto",  # "mps" for Apple Silicon, "cpu" otherwise
 )
 
 # -------------------- Helper --------------------
@@ -60,6 +61,7 @@ llm = AutoModelForCausalLM.from_pretrained(
 #     add_memory("assistant", text)
 #     return text
 
+
 def ask_llm(prompt: str, user_input: str, max_tokens: int = 512) -> str:
     """Send prompt + memory + user input to LLM and return text output."""
     context = f"{prompt}\n\nConversation so far:\n{get_memory(n_messages=5)}\n\nUser Input:\n{user_input}"
@@ -68,7 +70,7 @@ def ask_llm(prompt: str, user_input: str, max_tokens: int = 512) -> str:
     output_ids = llm.generate(
         **inputs,
         max_new_tokens=max_tokens,
-        do_sample=True,  
+        do_sample=True,
         temperature=0.01,
         pad_token_id=tokenizer.eos_token_id,
         eos_token_id=tokenizer.eos_token_id,
@@ -78,9 +80,10 @@ def ask_llm(prompt: str, user_input: str, max_tokens: int = 512) -> str:
         skip_special_tokens=True,
         clean_up_tokenization_spaces=True,
     )
-    text = full_output[len(context):].strip()
+    text = full_output[len(context) :].strip()
     add_memory("assistant", text)
     return text
+
 
 # def ask_llm(prompt: str, user_input: str, max_tokens: int = 512) -> str:
 #     """Send prompt + memory + user input to LLM and return text output."""
@@ -107,22 +110,7 @@ def workflow_decider(user_input: str) -> str:
 
 def generate_suggestion(user_input: str) -> LLMResponse:
     raw_text = ask_llm(SUGGESTION_PROMPT, user_input)
-    try:
-        # attempt to parse JSON from LLM
-        issues = json.loads(raw_text)
-        issues = [PrivacyIssue(**i) for i in issues]
-    except Exception:
-        # fallback: raw text as single entry if JSON parsing fails
-        issues = [
-            PrivacyIssue(
-                id=1,
-                issue="Parsing failed",
-                location="",
-                severity="low",
-                suggestion=raw_text,
-            )
-        ]
-    return LLMResponse(issues=issues, raw_text=user_input, fixed_code=None)
+    return parse_llm_response(raw_text)
 
 
 def generate_code(user_input: str) -> str:

@@ -1,12 +1,15 @@
+from typing import Optional
+
 from backend.llm import (
     LLMResponse,
     generate_code,
     generate_suggestion,
     workflow_decider,
 )
+from backend.service import parse_llm_response
 
 
-def chat(user_input: str) -> LLMResponse:
+def chat(user_input: str) -> Optional[LLMResponse]:
     print("=== Privacy Checker Chatbot ===")
 
     # user_input = input("\nEnter your code: ")
@@ -29,6 +32,6 @@ def chat(user_input: str) -> LLMResponse:
         response = generate_code(user_input)
         print("\n--- Fixed Code ---")
         print(response)
+        return parse_llm_response(response)
     else:
         print("\n Could not determine the task.")
-    return response
