@@ -34,15 +34,16 @@ class Type(str, Enum):
 class WorkFlow(BaseModel):
     type: Type
 
+
 class NewFile(BaseModel):
     filename: str
     content: str
+
 
 class FixedResponse(BaseModel):
     original_code: str
     fixed_code: str
     new_file: NewFile
-
 
 
 # -------------------- LLM setup --------------------
@@ -57,7 +58,9 @@ llm = Llama(
 # -------------------- Helper --------------------
 def ask_llm(prompt: str, user_input: str, max_tokens: int = 512) -> str:
     """Send prompt + memory + user input to LLM and return text output."""
-    context = f"{prompt}\n\nConversation so far:\n{get_memory()}\n\nUser Input:\n{user_input}"
+    context = (
+        f"{prompt}\n\nConversation so far:\n{get_memory()}\n\nUser Input:\n{user_input}"
+    )
     output = llm(context, max_tokens=max_tokens, stop=["</s>"])
     text = output["choices"][0]["text"].strip()
     add_memory("user", user_input)

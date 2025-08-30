@@ -27,10 +27,11 @@ def parse_llm_response(raw_text: str) -> LLMResponse:
                     issues.append(
                         PrivacyIssue(
                             id=int(item.get("id", 0)),
-                            issue=item.get("issue", ""),
-                            location=item.get("location", ""),
-                            severity=item.get("severity", ""),
-                            suggestion=item.get("suggestion", ""),
+                            issue=item.get("issue"),
+                            location=item.get("location"),
+                            severity=item.get("severity"),
+                            suggestion=item.get("suggestion"),
+                            implications=item.get("implications"),
                         )
                     )
                 except Exception:
@@ -42,6 +43,7 @@ def parse_llm_response(raw_text: str) -> LLMResponse:
                             location="",
                             severity="low",
                             suggestion=str(item),
+                            implications="",
                         )
                     )
 

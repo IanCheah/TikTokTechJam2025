@@ -6,27 +6,27 @@ from backend.llm import (
     generate_suggestion,
     workflow_decider,
 )
-from backend.service import parse_llm_response
 from backend.memory import add_memory
+from backend.service import parse_llm_response
 
 
-def chat(user_input: str) -> Optional[LLMResponse]:
+def chat(type: str, user_input: str) -> Optional[LLMResponse]:
     print("=== Privacy Checker Chatbot ===")
 
     # user_input = input("\nEnter your code: ")
 
-    #task = workflow_decider(user_input)
+    # task = workflow_decider(user_input)
     task = "suggestion"
     print(task)
     print("HELLO WORLD")
-    if "suggestion" in task.lower():
+    if "suggestion" == type:
         response = generate_suggestion(user_input)
         print("\n--- Privacy Issues Found ---")
         for issue in response.issues:
             print(
                 f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion}"
             )
-    elif "fixing" in task.lower():
+    elif "fixing" == type:
         response = generate_code(user_input)
         print("\n--- Fixed Code ---")
         print(response)
