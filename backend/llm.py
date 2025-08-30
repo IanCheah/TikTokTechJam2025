@@ -1,39 +1,14 @@
 import json
-from enum import Enum
-from typing import Optional
 
 import torch
 from llama_cpp import Llama
-from pydantic import BaseModel
+
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from backend.memory import add_memory, get_memory
 from backend.prompt import FIXING_PROMPT, SUGGESTION_PROMPT, WORKFLOW_PROMPT
 from backend.service import parse_llm_response
-
-
-# -------------------- Pydantic models --------------------
-class PrivacyIssue(BaseModel):
-    id: int
-    issue: str
-    location: str
-    severity: str
-    suggestion: str
-
-
-class LLMResponse(BaseModel):
-    issues: list[PrivacyIssue]
-    raw_text: str
-    fixed_code: Optional[str]
-
-
-class Type(str, Enum):
-    FIXING = "fixing"
-    SUGGESTION = "suggestion"
-
-
-class WorkFlow(BaseModel):
-    type: Type
+from backend.utils import LLMResponse
 
 
 # -------------------- LLM setup --------------------

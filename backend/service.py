@@ -1,7 +1,7 @@
 import json
 import re
 
-from llm import LLMResponse, PrivacyIssue
+from backend.utils import LLMResponse, PrivacyIssue
 
 
 def parse_llm_response(raw_text: str) -> LLMResponse:
