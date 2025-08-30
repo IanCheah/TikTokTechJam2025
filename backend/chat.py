@@ -18,6 +18,7 @@ def chat(type: str, user_input: str) -> Optional[LLMResponse]:
     # task = workflow_decider(user_input)
     # task = "suggestion"
     # print(task)
+    print(type)
     print("HELLO WORLD")
     if "suggestion" == type:
         response = generate_suggestion(user_input)
@@ -34,4 +35,3 @@ def chat(type: str, user_input: str) -> Optional[LLMResponse]:
         return parse_llm_response(response)
     else:
         print("\n Could not determine the task.")
-        return None

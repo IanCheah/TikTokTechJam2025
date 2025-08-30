@@ -8,43 +8,7 @@ from pydantic import BaseModel
 from backend.memory import add_memory, get_memory
 from backend.prompt import FIXING_PROMPT, SUGGESTION_PROMPT, WORKFLOW_PROMPT
 from backend.service import parse_llm_response
-
-
-# -------------------- Pydantic models --------------------
-class PrivacyIssue(BaseModel):
-    id: int
-    issue: str
-    location: str
-    severity: str
-    suggestion: str
-    implications: str
-
-
-class LLMResponse(BaseModel):
-    issues: list[PrivacyIssue]
-    issues: list[PrivacyIssue]
-    raw_text: str
-    fixed_code: Optional[str]
-
-
-class Type(str, Enum):
-    FIXING = "fixing"
-    SUGGESTION = "suggestion"
-
-
-class WorkFlow(BaseModel):
-    type: Type
-
-
-class NewFile(BaseModel):
-    filename: str
-    content: str
-
-
-class FixedResponse(BaseModel):
-    original_code: str
-    fixed_code: str
-    new_file: NewFile
+from backend.utils import LLMResponse
 
 
 # -------------------- LLM setup --------------------

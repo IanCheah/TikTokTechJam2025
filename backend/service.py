@@ -38,12 +38,8 @@ def parse_llm_response(raw_text: str) -> LLMResponse:
                     # Fallback single issue if a PrivacyIssue cannot be created
                     issues.append(
                         PrivacyIssue(
-                            id=0,
                             issue="Failed to parse individual issue",
-                            location="",
-                            severity="low",
-                            suggestion=str(item),
-                            implications="",
+                            suggestion=str(item)
                         )
                     )
 
@@ -54,12 +50,8 @@ def parse_llm_response(raw_text: str) -> LLMResponse:
             return LLMResponse(
                 issues=[
                     PrivacyIssue(
-                        id=0,
                         issue="Failed to parse JSON",
-                        location="",
-                        severity="low",
-                        suggestion=raw_text,
-                        implications="",
+                        suggestion=raw_text
                     )
                 ],
                 raw_text=raw_text,
@@ -70,12 +62,8 @@ def parse_llm_response(raw_text: str) -> LLMResponse:
         return LLMResponse(
             issues=[
                 PrivacyIssue(
-                    id=0,
                     issue="No JSON found",
-                    location="",
-                    severity="low",
-                    suggestion=raw_text,
-                    implications="",
+                    suggestion=raw_text
                 )
             ],
             raw_text=raw_text,
