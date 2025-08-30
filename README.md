@@ -27,5 +27,60 @@ Before you begin, ensure that you have the following installed:
 - **Python** 
 - **pip** 
 
+## Installation
+1. Clone the repository
+```sh
+git clone https://github.com/IanCheah/TikTokTechJam2025.git
+```
 
+2. Navigate to the project directory:
+```sh
+cd CAP
+```
 
+## Setting up the Front end
+1. From the root project directory, navigate to the frontend directory:
+```sh
+cd frontend
+```
+
+2. Install dependencies
+```sh
+cd npm install
+```
+
+3. Run the development server
+```sh
+cd npm run dev
+```
+
+4. Access the front end at ___
+
+## Setting up the backend
+1. Navigate to the backend directory:
+```sh
+cd backend
+```
+
+2. Create a Python virtual environment:
+```sh
+python -m venv venv
+```
+
+3. Activate the virtual environment:
+```sh
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
+```
+
+4. Install dependencies:
+```sh
+pip install -r requirements.txt
+```
+
+5. Run the backend server:
+```sh
+uvicorn backend.main:app --reload
+```
