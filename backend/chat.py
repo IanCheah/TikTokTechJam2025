@@ -7,6 +7,7 @@ from backend.llm import (
     workflow_decider,
 )
 from backend.service import parse_llm_response
+from backend.memory import add_memory
 
 
 def chat(user_input: str) -> Optional[LLMResponse]:
@@ -14,17 +15,14 @@ def chat(user_input: str) -> Optional[LLMResponse]:
 
     # user_input = input("\nEnter your code: ")
 
-    task = workflow_decider(user_input)
+    #task = workflow_decider(user_input)
+    task = "suggestion"
     print(task)
     print("HELLO WORLD")
-
     if "suggestion" in task.lower():
         response = generate_suggestion(user_input)
         print("\n--- Privacy Issues Found ---")
         for issue in response.issues:
-            print(
-                f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion}"
-            )
             print(
                 f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion}"
             )
