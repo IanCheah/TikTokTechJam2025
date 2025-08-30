@@ -24,7 +24,7 @@ def chat(type: str, user_input: str) -> Optional[LLMResponse]:
         print("\n--- Privacy Issues Found ---")
         for issue in response.issues:
             print(
-                f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion}"
+                f"{issue.id}. {issue.issue} (Location: {issue.location}) - Severity: {issue.severity} - Suggestion: {issue.suggestion} - Implications: {issue.implications}"
             )
     elif "fixing" == type:
         response = generate_code(user_input)

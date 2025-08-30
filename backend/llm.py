@@ -17,6 +17,7 @@ class PrivacyIssue(BaseModel):
     location: str
     severity: str
     suggestion: str
+    implications: str
 
 
 class LLMResponse(BaseModel):
