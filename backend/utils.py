@@ -6,21 +6,20 @@
 
 from enum import Enum
 from typing import Optional
-
 from pydantic import BaseModel
-
 
 # -------------------- Pydantic models --------------------
 class PrivacyIssue(BaseModel):
-    id: int
-    issue: str
-    location: str
-    severity: str
-    suggestion: str
-    implications: str
+    id: int=0
+    issue: str=""
+    location: str=""
+    severity: str="low"
+    suggestion: str=""
+    implications: str=""
 
 
 class LLMResponse(BaseModel):
+    issues: list[PrivacyIssue]
     issues: list[PrivacyIssue]
     raw_text: str
     fixed_code: Optional[str]
@@ -33,3 +32,14 @@ class Type(str, Enum):
 
 class WorkFlow(BaseModel):
     type: Type
+
+
+class NewFile(BaseModel):
+    filename: str
+    content: str
+
+
+class FixedResponse(BaseModel):
+    original_code: str
+    fixed_code: str
+    new_file: NewFile
