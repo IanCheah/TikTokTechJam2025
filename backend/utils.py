@@ -6,20 +6,21 @@
 
 from enum import Enum
 from typing import Optional
+
 from pydantic import BaseModel
+
 
 # -------------------- Pydantic models --------------------
 class PrivacyIssue(BaseModel):
-    id: int=0
-    issue: str=""
-    location: str=""
-    severity: str="low"
-    suggestion: str=""
-    implications: str=""
+    id: int = 0
+    issue: str = ""
+    location: str = ""
+    severity: str = "low"
+    suggestion: str = ""
+    implications: str = ""
 
 
 class LLMResponse(BaseModel):
-    issues: list[PrivacyIssue]
     issues: list[PrivacyIssue]
     raw_text: str
     fixed_code: Optional[str]
