@@ -48,29 +48,29 @@ export default function Chatbot() {
             <view className="ChatInputBar">
               <view style={{ flex: 1, padding: 8 }}>
                 <textarea
-  className="ChatInput"
-  id="chat-textarea"
-  placeholder="Type a message..."
-  value={inputContent}
-  bindinput={(res: any) => {
-    const value = res.detail.value
-    setInputContent(value)
+                  className="ChatInput"
+                  id="chat-textarea"
+                  placeholder="Type a message..."
+                  value={inputContent}
+                  bindinput={(res: any) => {
+                    const value = res.detail.value
+                    setInputContent(value)
 
-    const el = document.getElementById("chat-textarea") as HTMLTextAreaElement
-    if (el) {
-      el.style.height = "auto"
-      el.style.height = Math.min(el.scrollHeight, 120) + "px"
-    }
-  }}
-  bindkeydown={(e: any) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault?.() 
-      sendMessage()
-    }
-  }}
-  rows={1}
-  style="resize: none; overflow:hidden;"
-/>
+                    const el = document.getElementById("chat-textarea") as HTMLTextAreaElement
+                    if (el) {
+                      el.style.height = "auto"
+                      el.style.height = Math.min(el.scrollHeight, 120) + "px"
+                    }
+                  }}
+                  bindkeydown={(e: any) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault?.() 
+                      sendMessage()
+                    }
+                  }}
+                  rows={1}
+                  style="resize: none; overflow:hidden;"
+                />
               </view>
               <text className="SendButton" bindtap={sendMessage}>
                 ➤

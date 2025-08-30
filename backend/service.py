@@ -1,6 +1,5 @@
 import json
 import re
-from typing import Optional
 
 from llm import LLMResponse, PrivacyIssue
 
