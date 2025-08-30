@@ -84,3 +84,47 @@ pip install -r requirements.txt
 ```sh
 uvicorn backend.main:app --reload
 ```
+
+## Project Structure
+```sh
+TIKTOKTECHJAM/
+├── .vscode/                 # VSCode settings
+│   └── settings.json        # Editor configuration
+├── backend/                 # FastAPI backend
+│   ├── __init__.py          # Package initializer
+│   ├── chat.py              # Chatbot conversation handling
+│   ├── llm.py               # Qwen Coder model integration
+│   ├── main.py              # FastAPI application entry point
+│   ├── memory.py            # Session and conversation memory
+│   ├── prompt.py            # Prompt templates and formatting
+│   ├── service.py           # Core chatbot services
+│   ├── utils.py             # Utility/helper functions
+│   └── views.py             # API routes and endpoints
+├── frontend/                # Lynx frontend
+│   ├── src/                 # Frontend source code
+│   ├── .gitignore           # Ignore rules for frontend
+│   ├── biome.json           # Linter/formatter config
+│   ├── lynx.config.ts       # Lynx configuration
+│   ├── package.json         # Node.js dependencies
+│   ├── package-lock.json    # Node.js lock file
+│   ├── pnpm-lock.yaml       # pnpm lock file
+│   ├── README.md            # Frontend documentation
+│   ├── tsconfig.json        # TypeScript configuration
+│   ├── vitest.config.ts     # Testing configuration
+│   └── node_modules/        # Installed dependencies
+├── venv/                    # Python virtual environment
+├── .gitignore               # Git ignore rules
+├── package.json             # Root Node.js dependencies
+├── package-lock.json        # Root Node.js lock file
+├── README.md                # Project documentation
+└── requirements.txt         # Python dependencies
+```
+
+## Using CAPΔ
+CAPΔ is an AI powered chatbot that fixes privacy issues. To interact with it:
+
+1. Select whether you want to input code or a suggestion
+2. Type in your input
+3. Watch the magic happen!
+
+Try out CAPΔ, and make your code safer today!
