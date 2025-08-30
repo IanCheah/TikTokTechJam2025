@@ -59,6 +59,7 @@ def parse_llm_response(raw_text: str) -> LLMResponse:
                         location="",
                         severity="low",
                         suggestion=raw_text,
+                        implications="",
                     )
                 ],
                 raw_text=raw_text,
@@ -74,6 +75,7 @@ def parse_llm_response(raw_text: str) -> LLMResponse:
                     location="",
                     severity="low",
                     suggestion=raw_text,
+                    implications="",
                 )
             ],
             raw_text=raw_text,
